@@ -7,6 +7,8 @@ public class GrafikMiesieczny {
 
     public GrafikMiesieczny() {
         grafik = new ArrayList<GrafikDzienny>(31);
+        grafik.add(null);
+
     }
 
     public ArrayList<GrafikDzienny> getGrafik() {

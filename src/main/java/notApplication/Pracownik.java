@@ -2,11 +2,14 @@ package notApplication;
 
 import java.util.Scanner;
 public class Pracownik {
+    private Object Pracownik;
+
     @Override
     public String toString() {
-        return "Pracownik{" +
-                "id:" + idPracownika +
-                '}';
+//        return "Pracownik{" +
+//                "id:" + idPracownika +
+//                '}';
+        return "id:"+idPracownika;
     }
 
     int idPracownika;
