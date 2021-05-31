@@ -7,9 +7,6 @@ public class Pracownik {
 
     @Override
     public String toString() {
-//        return "Pracownik{" +
-//                "id:" + idPracownika +
-//                '}';
         return "id:"+idPracownika;
     }
 

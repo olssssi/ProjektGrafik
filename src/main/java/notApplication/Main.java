@@ -25,93 +25,50 @@ static Pracownik[] pracownicy = new Pracownik[5];
         pracownicy[3] = pracownik3;
         pracownicy[4] = pracownik4;
 
-        System.out.println("Dyspozycyjnosc:\n");
-        for(int j=0; j<31; j++){
-            System.out.println(pracownik1.tabDostepnosci[j]+"\n");
-        }
-
-        System.out.println("\n\n");
-
-        //tutaj powinna być strategia przeszukiwań
-        // Nie wiem na razie jak dodawać poranną a jak wieczorną zmianę
-
-        // counter odpowiadać będzie za to, żeby pętla wykonywała się tylko określoną ilość razy. Później zakładamy, że takiego pracownika nie ma.
         for(int i=1; i<=30; i++) {
-            for(m=0; m<10; m++){
+            // Te m wprowadziłam po to, żeby pętla nie wykonywała się w nieskończoność. 10 razy szuka randomowej osoby i sprawdza,
+            // Czy ma dyspozycyjność danego dnia. Jeżeli 10 razy nie trafi na taką osobę, to później wprowadza null
+            // Czyli, że na tą ranną zmianę nie ma komu pracować. Tak samo robię z n i wieczorną zmianą
+            for (m = 0; m < 10; m++) {
                 rand1 = ThreadLocalRandom.current().nextInt(1, 5);
-                System.out.println("Szukam1. Rand="+rand1+"\n");
-                if(pracownicy[rand1].tabDostepnosci[i]==1) {
-                    System.out.println("Znaleziono osobe na ranna zmiane w dniu nr "+i+"\n");
-                    m=-1;
+                if (pracownicy[rand1].tabDostepnosci[i] == 1) {
+                    System.out.println("Znaleziono osobe na ranna zmiane w dniu nr " + i + "\n");
+                    m = -1;
                     break;
                 }
             }
 
-            for(n=0; n<10; n++){
+            for (n = 0; n < 10; n++) {
                 rand2 = ThreadLocalRandom.current().nextInt(1, 5);
-                System.out.println("Szukam2. Rand="+rand2+"\n");
-                if(pracownicy[rand2].tabDostepnosci[i]==1) {
-                    System.out.println("Znaleziono osobe na wieczorna zmiane w dniu nr "+i+"\n");
-                    n=-1;
+                if (pracownicy[rand2].tabDostepnosci[i] == 1) {
+                    System.out.println("Znaleziono osobe na wieczorna zmiane w dniu nr " + i + "\n");
+                    n = -1;
                     break;
                 }
             }
 
-//            Ten sposob nie sprawdza dyspozycyjnosci
-//            while (true) {
-//                rand1 = ThreadLocalRandom.current().nextInt(1, 5);
-//                if (pracownicy[rand1] != null) {
-////                    grafikMiesieczny.grafik.get(i).setPorannaZmiana(pracownicy[rand1]);
-//                    break;
-//                }
-//            }
-//            while (true) {
-//                rand2 = ThreadLocalRandom.current().nextInt(1, 5);
-//                if (pracownicy[rand2] != null) {
-//                    grafikMiesieczny.grafik.get(i).setWieczornaZmiana(pracownicy[rand2]);
-//                    break;
-//                }
-//            }
-            if(m==-1 && n==-1){
-                GrafikDzienny grafikDzienny = new GrafikDzienny(i,"poniedzialek", pracownicy[rand1], pracownicy[rand2]);
+            // Znaleziono osobę na ranną i wieczorną zmianę
+            if (m == -1 && n == -1) {
+                GrafikDzienny grafikDzienny = new GrafikDzienny(i, "poniedzialek", pracownicy[rand1], pracownicy[rand2]);
                 grafikMiesieczny.grafik.add(grafikDzienny);
             }
-            else if(m==-1 && n!=-1){
-                GrafikDzienny grafikDzienny = new GrafikDzienny(i,"poniedzialek", pracownicy[rand1], null);
+            // Znaleziono osobę na ranną zmianę
+            else if (m == -1 && n != -1) {
+                GrafikDzienny grafikDzienny = new GrafikDzienny(i, "poniedzialek", pracownicy[rand1], null);
                 grafikMiesieczny.grafik.add(grafikDzienny);
             }
-            else if(m!=-1 && n==-1){
-                GrafikDzienny grafikDzienny = new GrafikDzienny(i,"poniedzialek", null, pracownicy[rand2]);
+            // Znaleziono osobę na wieczorną zmianę
+            else if (m != -1 && n == -1) {
+                GrafikDzienny grafikDzienny = new GrafikDzienny(i, "poniedzialek", null, pracownicy[rand2]);
                 grafikMiesieczny.grafik.add(grafikDzienny);
             }
-            else{
-                GrafikDzienny grafikDzienny = new GrafikDzienny(i,"poniedzialek", null, null);
+            // Nie znaleziono osób ani na ranną ani na wieczorną zmianę
+            else {
+                GrafikDzienny grafikDzienny = new GrafikDzienny(i, "poniedzialek", null, null);
                 grafikMiesieczny.grafik.add(grafikDzienny);
             }
 
         }
-
-//            if((i+1)%7==0){
-//                GrafikDzienny grafikDzienny = new GrafikDzienny(i,"niedziela", null, null);
-//                grafikMiesieczny.grafik.add(grafikDzienny);
-//            }
-//            else if(pracownik1.tabDostepnosci[i]==1 && pracownik2.tabDostepnosci[i]==1){
-//                GrafikDzienny grafikDzienny = new GrafikDzienny(i,"wtorek", pracownik1, pracownik2);
-//                grafikMiesieczny.grafik.add(grafikDzienny);
-//            }
-//            else if(pracownik1.tabDostepnosci[i]==1){
-//                GrafikDzienny grafikDzienny = new GrafikDzienny(i,"wtorek", pracownik1, null);
-//                grafikMiesieczny.grafik.add(grafikDzienny);
-//            }
-//            else if(pracownik2.tabDostepnosci[i]==1){
-//                GrafikDzienny grafikDzienny = new GrafikDzienny(i,"wtorek", pracownik2, null);
-//                grafikMiesieczny.grafik.add(grafikDzienny);
-//            }
-//            else{
-//                GrafikDzienny grafikDzienny = new GrafikDzienny(i,"wtorek", null, null);
-//                grafikMiesieczny.grafik.add(grafikDzienny);
-//            }
-//        }
 
         //wyswietlanie tabelki
             //sout +TAB  -skrot do system out
