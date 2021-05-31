@@ -2,6 +2,13 @@ package notApplication;
 
 import java.util.Scanner;
 public class Pracownik {
+    @Override
+    public String toString() {
+        return "Pracownik{" +
+                "id:" + idPracownika +
+                '}';
+    }
+
     int idPracownika;
     int tabDostepnosci[] = new int[31];
 

@@ -1,14 +1,15 @@
 package notApplication;
 
 public class Main {
-    static int[][] idPracownika = new int[31][2];
+//    static int[][] idPracownika = new int[31][2];
+static GrafikMiesieczny grafikMiesieczny = new GrafikMiesieczny();
 
-    public Main(){
-        for(int i=1; i<=30; i++){
-            idPracownika[i][0]= 0;
-            idPracownika[i][1]= 0;
-        }
-    }
+//    public Main(){
+//        for(int i=1; i<=30; i++){
+//            idPracownika[i][0]= 0;
+//            idPracownika[i][1]= 0;
+//        }
+//    }
     public static void main(String[] args) {
         Pracownik pracownik1 = new Pracownik(1);
         Pracownik pracownik2 = new Pracownik(2);
@@ -18,15 +19,26 @@ public class Main {
         pracownik2.wpiszDostepnosc();
 
         //tutaj powinna być strategia przeszukiwań
+        // Nie wiem na razie jak dodawać poranną a jak wieczorną zmianę xd
         for(int i=1; i<=30; i++){
-            if(pracownik1.tabDostepnosci[i]==1){
-                idPracownika[i][0]= pracownik1.idPracownika;
+            if(pracownik1.tabDostepnosci[i]==1 && pracownik2.tabDostepnosci[i]==1){
+                grafikMiesieczny.grafik.get(i).setPorannaZmiana(pracownik1);
+                grafikMiesieczny.grafik.get(i).setWieczornaZmiana(pracownik2);
+            }
+            else if(pracownik1.tabDostepnosci[i]==1){
+//                idPracownika[i][0]= pracownik1.idPracownika;
+                grafikMiesieczny.grafik.get(i).setPorannaZmiana(pracownik1);
+                grafikMiesieczny.grafik.get(i).setWieczornaZmiana(null);
             }
             else if(pracownik2.tabDostepnosci[i]==1){
-                idPracownika[i][0]= pracownik2.idPracownika;
+//                idPracownika[i][0]= pracownik2.idPracownika;
+                grafikMiesieczny.grafik.get(i).setPorannaZmiana(pracownik2);
+                grafikMiesieczny.grafik.get(i).setWieczornaZmiana(null);
             }
             else{
-                idPracownika[i][0] = -1;
+//                idPracownika[i][0] = -1;
+                grafikMiesieczny.grafik.get(i).setPorannaZmiana(null);
+                grafikMiesieczny.grafik.get(i).setWieczornaZmiana(null);
             }
             //jeszcze nie wiem czy grafik potrzebny czy robimy wszystko na zasadzie tabeli dwuwymiarowej
             //GrafikNaDzien grafik = new GrafikNaDzien(i,idPracownika[i][0], idPracownika[i][1] );
@@ -36,24 +48,24 @@ public class Main {
             //sout +TAB  -skrot do system out
             System.out.println("_______________________________________________________________________________________________________________________________________________________________________________");
             System.out.println("|                        |           1            |           2            |           3            |           4            |           5            |           6            |");
-            System.out.println("|                        |  Pracownik "+idPracownika[1][0]+"           |  Pracownik "+idPracownika[2][0]+"           |  Pracownik "+idPracownika[3][0]+"           |  Pracownik "+idPracownika[4][0]+"           |  Pracownik "+idPracownika[5][0]+"           |                        |");
-            System.out.println("|                        |  Pracownik "+idPracownika[1][1]+"           |  Pracownik "+idPracownika[2][1]+"           |  Pracownik "+idPracownika[3][1]+"           |  Pracownik "+idPracownika[4][1]+"           |  Pracownik "+idPracownika[5][1]+"           |                        |");
+            System.out.println("|                        |"+grafikMiesieczny.grafik.get(1).porannaZmiana+"           |"+grafikMiesieczny.grafik.get(2).porannaZmiana+"           |"+grafikMiesieczny.grafik.get(3).porannaZmiana+"           |"+grafikMiesieczny.grafik.get(4).porannaZmiana+"           |"+grafikMiesieczny.grafik.get(5).porannaZmiana+"           |                        |");
+            System.out.println("|                        |"+grafikMiesieczny.grafik.get(1).wieczornaZmiana+"           |"+grafikMiesieczny.grafik.get(2).wieczornaZmiana+"           |"+grafikMiesieczny.grafik.get(3).wieczornaZmiana+"           |"+grafikMiesieczny.grafik.get(4).wieczornaZmiana+"           |"+grafikMiesieczny.grafik.get(5).wieczornaZmiana+"           |                        |");
             System.out.println("_______________________________________________________________________________________________________________________________________________________________________________");
             System.out.println("|           7            |           8            |           9            |           10           |           11           |           12           |           13           |");
-            System.out.println("|  Pracownik "+idPracownika[7][0]+"           |  Pracownik "+idPracownika[8][0]+"           |  Pracownik "+idPracownika[9][0]+"           |  Pracownik "+idPracownika[10][0]+"           |  Pracownik "+idPracownika[11][0]+"           |  Pracownik "+idPracownika[12][0]+"           |                        |");
-            System.out.println("|  Pracownik "+idPracownika[7][1]+"           |  Pracownik "+idPracownika[8][1]+"           |  Pracownik "+idPracownika[9][1]+"           |  Pracownik "+idPracownika[10][1]+"           |  Pracownik "+idPracownika[11][1]+"           |  Pracownik "+idPracownika[12][1]+"           |                        |");
+            System.out.println("|"+grafikMiesieczny.grafik.get(7).porannaZmiana+"           |"+grafikMiesieczny.grafik.get(8).porannaZmiana+"           |"+grafikMiesieczny.grafik.get(9).porannaZmiana+"           |"+grafikMiesieczny.grafik.get(10).porannaZmiana+"           |"+grafikMiesieczny.grafik.get(11).porannaZmiana+"           |"+grafikMiesieczny.grafik.get(12).porannaZmiana+"           |                        |");
+            System.out.println("|"+grafikMiesieczny.grafik.get(7).wieczornaZmiana+"           |"+grafikMiesieczny.grafik.get(8).wieczornaZmiana+"           |"+grafikMiesieczny.grafik.get(9).wieczornaZmiana+"           |"+grafikMiesieczny.grafik.get(10).wieczornaZmiana+"           |"+grafikMiesieczny.grafik.get(11).wieczornaZmiana+"           |"+grafikMiesieczny.grafik.get(12).wieczornaZmiana+"           |                        |");
             System.out.println("_______________________________________________________________________________________________________________________________________________________________________________");
             System.out.println("|           14           |           15           |           16           |           17           |           18           |           19           |           20           |");
-            System.out.println("|  Pracownik "+idPracownika[14][0]+"           |  Pracownik "+idPracownika[15][0]+"           |  Pracownik "+idPracownika[16][0]+"           |  Pracownik "+idPracownika[17][0]+"           |  Pracownik "+idPracownika[18][0]+"           |  Pracownik "+idPracownika[19][0]+"           |                        |");
-            System.out.println("|  Pracownik "+idPracownika[14][1]+"           |  Pracownik "+idPracownika[15][1]+"           |  Pracownik "+idPracownika[16][1]+"           |  Pracownik "+idPracownika[17][1]+"           |  Pracownik "+idPracownika[18][1]+"           |  Pracownik "+idPracownika[19][1]+"           |                        |");
+            System.out.println("|"+grafikMiesieczny.grafik.get(14).porannaZmiana+"           |"+grafikMiesieczny.grafik.get(15).porannaZmiana+"           |"+grafikMiesieczny.grafik.get(16).porannaZmiana+"           |"+grafikMiesieczny.grafik.get(17).porannaZmiana+"           |"+grafikMiesieczny.grafik.get(18).porannaZmiana+"           |"+grafikMiesieczny.grafik.get(19).porannaZmiana+"           |                        |");
+            System.out.println("|"+grafikMiesieczny.grafik.get(14).wieczornaZmiana+"           |"+grafikMiesieczny.grafik.get(15).wieczornaZmiana+"           |"+grafikMiesieczny.grafik.get(16).wieczornaZmiana+"           |"+grafikMiesieczny.grafik.get(17).wieczornaZmiana+"           |"+grafikMiesieczny.grafik.get(18).wieczornaZmiana+"           |"+grafikMiesieczny.grafik.get(19).wieczornaZmiana+"           |                        |");
             System.out.println("_______________________________________________________________________________________________________________________________________________________________________________");
             System.out.println("|           21           |           22           |           23           |           24           |           25           |           26           |           27           |");
-            System.out.println("|  Pracownik "+idPracownika[21][0]+"           |  Pracownik "+idPracownika[22][0]+"           |  Pracownik "+idPracownika[23][0]+"           |  Pracownik "+idPracownika[24][0]+"           |  Pracownik "+idPracownika[25][0]+"           |  Pracownik "+idPracownika[26][0]+"           |                        |");
-            System.out.println("|  Pracownik "+idPracownika[21][1]+"           |  Pracownik "+idPracownika[22][1]+"           |  Pracownik "+idPracownika[23][1]+"           |  Pracownik "+idPracownika[24][1]+"           |  Pracownik "+idPracownika[25][1]+"           |  Pracownik "+idPracownika[26][1]+"           |                        |");
+            System.out.println("|"+grafikMiesieczny.grafik.get(21).porannaZmiana+"           |"+grafikMiesieczny.grafik.get(22).porannaZmiana+"           |"+grafikMiesieczny.grafik.get(23).porannaZmiana+"           |"+grafikMiesieczny.grafik.get(24).porannaZmiana+"           |"+grafikMiesieczny.grafik.get(25).porannaZmiana+"           |"+grafikMiesieczny.grafik.get(26).porannaZmiana+"           |                        |");
+            System.out.println("|"+grafikMiesieczny.grafik.get(21).wieczornaZmiana+"           |"+grafikMiesieczny.grafik.get(22).wieczornaZmiana+"           |"+grafikMiesieczny.grafik.get(23).wieczornaZmiana+"           |"+grafikMiesieczny.grafik.get(24).wieczornaZmiana+"           |"+grafikMiesieczny.grafik.get(25).wieczornaZmiana+"           |"+grafikMiesieczny.grafik.get(26).wieczornaZmiana+"           |                        |");
             System.out.println("_______________________________________________________________________________________________________________________________________________________________________________");
             System.out.println("|           28           |           29           |           30           |                        |                        |                        |                        |");
-            System.out.println("|  Pracownik "+idPracownika[28][0]+"           |  Pracownik "+idPracownika[29][0]+"           |  Pracownik "+idPracownika[30][0]+"           |                        |                        |                        |                        |");
-            System.out.println("|  Pracownik "+idPracownika[28][1]+"           |  Pracownik "+idPracownika[29][1]+"           |  Pracownik "+idPracownika[30][1]+"           |                        |                        |                        |                        |");
+            System.out.println("|"+grafikMiesieczny.grafik.get(28).porannaZmiana+"           |"+grafikMiesieczny.grafik.get(29).porannaZmiana+"           |"+grafikMiesieczny.grafik.get(30).porannaZmiana+"           |                        |                        |                        |                        |");
+            System.out.println("|"+grafikMiesieczny.grafik.get(28).wieczornaZmiana+"           |"+grafikMiesieczny.grafik.get(29).wieczornaZmiana+"           |"+grafikMiesieczny.grafik.get(30).wieczornaZmiana+"           |                        |                        |                        |                        |");
             System.out.println("_______________________________________________________________________________________________________________________________________________________________________________");
 
 
