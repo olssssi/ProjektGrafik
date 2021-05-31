@@ -1,5 +1,7 @@
 package notApplication;
 
+import java.sql.SQLOutput;
+
 public class GrafikDzienny {
     int dzien;
     String dzienTygodnia;
@@ -39,18 +41,34 @@ public class GrafikDzienny {
 
 
     public boolean sprawdzPoprawnosc(){
-        if(dzienTygodnia.equals("Sobota"))
-            if(!sprawdzSobote()) return false;
-            else if(dzienTygodnia.equals("Niedziela"))
-                if(!sprawdzNiedziele()) return false;
-                else{
-                    if(porannaZmiana == null)
-                        return false;
-                    if(wieczornaZmiana == null)
-                        return false;
-                    if(!sprawdzPodwojneZmiany())
-                        return false;
-                }
+//        if(dzienTygodnia.equals("Sobota"))
+        if(dzien==5 || dzien==12 || dzien==19 || dzien==26) {
+            if (!sprawdzSobote()) {
+                System.out.println("Sobotnie popołudnie powinno być niepracujące\n");
+                return false;
+            }
+//            else if(dzienTygodnia.equals("Niedziela"))
+        }else if(dzien==6 || dzien==13 || dzien==20 || dzien==27) {
+            if (!sprawdzNiedziele()) {
+                System.out.println("Niedziela powinna być niepracująca\n");
+                return false;
+            }
+        }else{
+            if(porannaZmiana == null){
+                System.out.println("Brak osoby na poranną zmianę w ciągu tygodnia\n");
+                return false;
+            }
+            if(wieczornaZmiana == null){
+                System.out.println("Brak osoby na wieczorną zmianę w ciągu tygodnia\n");
+                return false;
+            }
+
+            if(!sprawdzPodwojneZmiany()){
+                System.out.println("Napotkano podwojne zmiany\n");
+                return false;
+            }
+
+        }
         return true;
     }
 

@@ -1,6 +1,7 @@
 package notApplication;
 
 import java.util.Scanner;
+
 public class Pracownik {
     private Object Pracownik;
 

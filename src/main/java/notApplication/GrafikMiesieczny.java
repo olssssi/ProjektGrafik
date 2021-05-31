@@ -15,13 +15,4 @@ public class GrafikMiesieczny {
         return grafik;
     }
 
-    //TODO Trzeba jeszcze sprawdzać, czy pracownik pracuje odpowiednia ilosc h w miesiacu
-    //Specjalnie nie robiłam tego na razie, bo nasz algorytm jeszcze nie znajduje tak dobrego rozwiazania
-    public boolean sprawdzPoprawnosc(){
-        for(int i=0; i<=30; i++){
-            if(!grafik.get(i).sprawdzPoprawnosc()) return false;
-        }
-        return true;
-    }
-
 }
