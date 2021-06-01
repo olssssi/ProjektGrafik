@@ -72,6 +72,59 @@ public class GrafikMiesieczny  implements Comparator<GrafikMiesieczny>{
         // Po stworzeniu grafiku od razu obliczamy jego ocenę
         zliczPoprawneDni();
 
+
+    }
+
+    public void losowoZmienGrafikDzienny(int numerDnia, Pracownik[] pracownicy){
+        int rand1=0, rand2=0, m=-1, n=-1;
+        GrafikDzienny grafikDzienny = grafik.get(numerDnia);
+        for (m = 0; m < 10; m++) {
+            rand1 = ThreadLocalRandom.current().nextInt(1, 5);
+            if (pracownicy[rand1].tabDostepnosci[numerDnia] == 1) {
+//                    System.out.println("Znaleziono osobe na ranna zmiane w dniu nr " + i + "\n");
+                m = -1;
+                break;
+            }
+        }
+        if((numerDnia+2)%7==0){ n=1;}
+        else{
+            for (n = 0; n < 10; n++) {
+                rand2 = ThreadLocalRandom.current().nextInt(1, 5);
+                if (pracownicy[rand2].tabDostepnosci[numerDnia] == 1) {
+//                        System.out.println("Znaleziono osobe na wieczorna zmiane w dniu nr " + i + "\n");
+                    n = -1;
+                    break;
+                }
+            }}
+        // Znaleziono osobę na ranną i wieczorną zmianę
+        if (m == -1 && n == -1) {
+//            GrafikDzienny grafikDzienny = new GrafikDzienny(numerDnia, "poniedzialek", pracownicy[rand1], pracownicy[rand2]);
+//            grafik.add(grafikDzienny);
+            grafikDzienny.porannaZmiana = pracownicy[rand1];
+            grafikDzienny.wieczornaZmiana = pracownicy[rand2];
+
+        }
+        // Znaleziono osobę na ranną zmianę
+        else if (m == -1 && n != -1) {
+//            GrafikDzienny grafikDzienny = new GrafikDzienny(numerDnia, "poniedzialek", pracownicy[rand1], null);
+//            grafik.add(grafikDzienny);
+            grafikDzienny.porannaZmiana = pracownicy[rand1];
+            grafikDzienny.wieczornaZmiana = null;
+        }
+        // Znaleziono osobę na wieczorną zmianę
+        else if (m != -1 && n == -1) {
+//            GrafikDzienny grafikDzienny = new GrafikDzienny(numerDnia, "poniedzialek", null, pracownicy[rand2]);
+//            grafik.add(grafikDzienny);
+            grafikDzienny.porannaZmiana = null;
+            grafikDzienny.wieczornaZmiana = pracownicy[rand2];
+        }
+        // Nie znaleziono osób ani na ranną ani na wieczorną zmianę
+        else {
+//            GrafikDzienny grafikDzienny = new GrafikDzienny(numerDnia, "poniedzialek", null, null);
+//            grafik.add(grafikDzienny);
+            grafikDzienny.porannaZmiana = null;
+            grafikDzienny.wieczornaZmiana = null;
+        }
     }
 
     public void wypisz(){
