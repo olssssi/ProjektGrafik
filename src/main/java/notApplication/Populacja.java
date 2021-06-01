@@ -17,6 +17,15 @@ public class Populacja {
         return r;
     }
 
-
+    // procent odrzuconych wyrażony w procentach, np 20 - w domyśle 20%
+    public void dokonajSelekcji(int procentOdrzuconych, Pracownik[] pracownicy){
+        int liczbaOdrzuconych= (int) (grafiki.length*procentOdrzuconych*0.01);
+        int licznik= grafiki.length-1;
+        for(int i=0; i<liczbaOdrzuconych; i++, licznik--){
+            GrafikMiesieczny grafik = new GrafikMiesieczny();
+            grafik.uzupelnijGrafik(pracownicy);
+            grafiki[licznik] = grafik;
+        }
+    }
 
 }

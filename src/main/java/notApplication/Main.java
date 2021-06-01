@@ -59,7 +59,12 @@ public class Main {
         populacja.grafiki[8]=grafikMiesieczny8;
         populacja.grafiki[9]=grafikMiesieczny9;
         populacja.grafiki[10]=grafikMiesieczny10;
+        populacja.sortuj();
         System.out.println(populacja);
+
+        // Selekcja
+        System.out.println("\nPO SELEKCJI:\n");
+        populacja.dokonajSelekcji(70,pracownicy);
         populacja.sortuj();
         System.out.println(populacja);
 
