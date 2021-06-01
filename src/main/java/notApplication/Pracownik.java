@@ -30,7 +30,7 @@ public class Pracownik {
                 //System.out.println("Dzien: "+ i + " jest niedzielą, tego dnia nie pracujemy ");
                 tabDostepnosci[i] = -1;
             }else{
-                System.out.println(i + ": ");
+//                System.out.println(i + ": ");
                 dostepnosc = in.nextInt();
                 if(dostepnosc==1 || dostepnosc==0) {
                     tabDostepnosci[i] = dostepnosc;

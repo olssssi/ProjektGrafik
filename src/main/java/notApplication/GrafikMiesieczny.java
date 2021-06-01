@@ -5,9 +5,11 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class GrafikMiesieczny {
     ArrayList<GrafikDzienny> grafik;
+    int ocena;
 
     public GrafikMiesieczny() {
         grafik = new ArrayList<GrafikDzienny>(31);
+        ocena=0;
         grafik.add(null);
 
     }
@@ -25,7 +27,7 @@ public class GrafikMiesieczny {
             for (m = 0; m < 10; m++) {
                 rand1 = ThreadLocalRandom.current().nextInt(1, 5);
                 if (pracownicy[rand1].tabDostepnosci[i] == 1) {
-                    System.out.println("Znaleziono osobe na ranna zmiane w dniu nr " + i + "\n");
+//                    System.out.println("Znaleziono osobe na ranna zmiane w dniu nr " + i + "\n");
                     m = -1;
                     break;
                 }
@@ -36,7 +38,7 @@ public class GrafikMiesieczny {
                 for (n = 0; n < 10; n++) {
                     rand2 = ThreadLocalRandom.current().nextInt(1, 5);
                     if (pracownicy[rand2].tabDostepnosci[i] == 1) {
-                        System.out.println("Znaleziono osobe na wieczorna zmiane w dniu nr " + i + "\n");
+//                        System.out.println("Znaleziono osobe na wieczorna zmiane w dniu nr " + i + "\n");
                         n = -1;
                         break;
                     }
@@ -65,6 +67,10 @@ public class GrafikMiesieczny {
             }
 
         }
+
+        // Po stworzeniu grafiku od razu obliczamy jego ocenę
+        zliczPoprawneDni();
+
     }
 
     public void wypisz(){
@@ -98,6 +104,8 @@ public class GrafikMiesieczny {
     }
 
 
+    //TODO Trzeba jeszcze sprawdzać, czy pracownik pracuje odpowiednia ilosc h w miesiacu
+    //Specjalnie nie robiłam tego na razie, bo nasz algorytm jeszcze nie znajduje tak dobrego rozwiazania
     public boolean sprawdzPoprawnosc(){
         for(int i=1; i<=30; i++){
             if(!grafik.get(i).sprawdzPoprawnosc()) {
@@ -107,6 +115,19 @@ public class GrafikMiesieczny {
         }
         return true;
     }
+
+    public int zliczPoprawneDni(){
+        int iloscPoprawnychDni = 0;
+        for(int i=1; i<=30; i++){
+            if(grafik.get(i).sprawdzPoprawnosc()) {
+                iloscPoprawnychDni++;
+            }
+        }
+        // Uptade oceny
+        this.ocena = iloscPoprawnychDni;
+        return iloscPoprawnychDni;
+    }
+
     public ArrayList<GrafikDzienny> getGrafik() {
         return grafik;
     }
