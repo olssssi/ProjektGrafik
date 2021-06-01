@@ -1,12 +1,13 @@
 package notApplication;
 
+import java.io.FileNotFoundException;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Main {
 static GrafikMiesieczny grafikMiesieczny = new GrafikMiesieczny();
 static Pracownik[] pracownicy = new Pracownik[5];
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
         int rand1=0, rand2=0, m, n;
         Pracownik pracownik1 = new Pracownik(1);
         Pracownik pracownik2 = new Pracownik(2);
@@ -49,8 +50,15 @@ static Pracownik[] pracownicy = new Pracownik[5];
 
             // Znaleziono osobę na ranną i wieczorną zmianę
             if (m == -1 && n == -1) {
-                GrafikDzienny grafikDzienny = new GrafikDzienny(i, "poniedzialek", pracownicy[rand1], pracownicy[rand2]);
-                grafikMiesieczny.grafik.add(grafikDzienny);
+                if((i+2)%7==0){
+                    GrafikDzienny grafikDzienny = new GrafikDzienny(i, "poniedzialek", pracownicy[rand1], null);
+                    grafikMiesieczny.grafik.add(grafikDzienny);
+                }
+                else{
+                    GrafikDzienny grafikDzienny = new GrafikDzienny(i, "poniedzialek", pracownicy[rand1], pracownicy[rand2]);
+                    grafikMiesieczny.grafik.add(grafikDzienny);
+                }
+
             }
             // Znaleziono osobę na ranną zmianę
             else if (m == -1 && n != -1) {
@@ -58,7 +66,7 @@ static Pracownik[] pracownicy = new Pracownik[5];
                 grafikMiesieczny.grafik.add(grafikDzienny);
             }
             // Znaleziono osobę na wieczorną zmianę
-            else if (m != -1 && n == -1) {
+            else if (m != -1 && n == -1 && (i+2)%7!=0) {
                 GrafikDzienny grafikDzienny = new GrafikDzienny(i, "poniedzialek", null, pracownicy[rand2]);
                 grafikMiesieczny.grafik.add(grafikDzienny);
             }

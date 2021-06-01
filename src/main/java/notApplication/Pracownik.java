@@ -1,5 +1,7 @@
 package notApplication;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class Pracownik {
@@ -17,8 +19,9 @@ public class Pracownik {
         this.idPracownika = id;
     }
 
-    void wpiszDostepnosc(){
-        Scanner in = new Scanner( System.in );
+    void wpiszDostepnosc() throws FileNotFoundException {
+        File plik = new File("test.txt");
+        Scanner in = new Scanner( plik );
         System.out.println("Wpisz swoją dostępność w danym dniu (1-dostepny, 0-nie): ");
         int dostepnosc;
 
