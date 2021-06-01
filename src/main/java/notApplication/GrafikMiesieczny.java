@@ -2,8 +2,9 @@ package notApplication;
 
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.Comparator;
 
-public class GrafikMiesieczny {
+public class GrafikMiesieczny  implements Comparator<GrafikMiesieczny>{
     ArrayList<GrafikDzienny> grafik;
     int ocena;
 
@@ -130,6 +131,16 @@ public class GrafikMiesieczny {
 
     public ArrayList<GrafikDzienny> getGrafik() {
         return grafik;
+    }
+
+    @Override
+    public int compare(GrafikMiesieczny o1, GrafikMiesieczny o2) {
+        int ocena1, ocena2;
+        if(o1==null) ocena1 = 0;
+        else ocena1 = o1.ocena;
+        if(o2==null) ocena2 = 0;
+        else ocena2 = o2.ocena;
+        return  ocena2 - ocena1;
     }
 
 }

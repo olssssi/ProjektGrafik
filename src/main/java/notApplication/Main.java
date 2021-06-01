@@ -22,6 +22,7 @@ public class Main {
         pracownicy[4] = pracownik4;
 
 
+        GrafikMiesieczny grafikMiesieczny0 = new GrafikMiesieczny();
         GrafikMiesieczny grafikMiesieczny1 = new GrafikMiesieczny();
         GrafikMiesieczny grafikMiesieczny2 = new GrafikMiesieczny();
         GrafikMiesieczny grafikMiesieczny3 = new GrafikMiesieczny();
@@ -33,6 +34,7 @@ public class Main {
         GrafikMiesieczny grafikMiesieczny9 = new GrafikMiesieczny();
         GrafikMiesieczny grafikMiesieczny10 = new GrafikMiesieczny();
 
+        grafikMiesieczny0.uzupelnijGrafik(pracownicy);
         grafikMiesieczny1.uzupelnijGrafik(pracownicy);
         grafikMiesieczny2.uzupelnijGrafik(pracownicy);
         grafikMiesieczny3.uzupelnijGrafik(pracownicy);
@@ -46,6 +48,7 @@ public class Main {
 
         // Stworzenie populacji
         Populacja populacja = new Populacja();
+        populacja.grafiki[0]=grafikMiesieczny0;
         populacja.grafiki[1]=grafikMiesieczny1;
         populacja.grafiki[2]=grafikMiesieczny2;
         populacja.grafiki[3]=grafikMiesieczny3;
@@ -56,6 +59,8 @@ public class Main {
         populacja.grafiki[8]=grafikMiesieczny8;
         populacja.grafiki[9]=grafikMiesieczny9;
         populacja.grafiki[10]=grafikMiesieczny10;
+        System.out.println(populacja);
+        populacja.sortuj();
         System.out.println(populacja);
 
     }
