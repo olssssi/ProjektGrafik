@@ -61,24 +61,18 @@ public class Main {
         populacja.grafiki[10]=grafikMiesieczny10;
         populacja.sortuj();
         System.out.println(populacja);
-        populacja.grafiki[2].wypisz();
 
         // Selekcja
         populacja.dokonajSelekcji(100,20,pracownicy);
         System.out.println("\nPO SELEKCJI:\n");
         System.out.println(populacja);
-        populacja.grafiki[2].wypisz();
 
         // Krzyżowanie -- jeszcze myślę jak to zrobić
 
         // Mutacja
-//        populacja.mutuj(10,100,pracownicy);
-//        for (GrafikMiesieczny grafik:populacja.grafiki) {
-//            grafik.zliczPoprawneDni();
-//        }
-//        System.out.println("\nPO MUTACJI:\n");
-//        System.out.println(populacja);
-//        populacja.grafiki[2].wypisz();
+        populacja.mutuj(20,50,pracownicy);
+        System.out.println("\nPO MUTACJI:\n");
+        System.out.println(populacja);
 
     }
 }

@@ -43,23 +43,13 @@ public class Populacja {
         int liczbaMutowanychDni = (int)(30*procentMutowanychDni*0.01);
         int random1,random2;
         for(int i=0; i<liczbaMutowanychGrafikow; i++){
-//            random1 = ThreadLocalRandom.current().nextInt(1, grafiki.length);
-            random1=2;
-//            System.out.println("przed mutacja:\n");
-//            grafiki[random1].wypisz();
-            System.out.println("\nPrzeprowadzamy mutacje dla "+random1+" grafiku\n");
+            random1 = ThreadLocalRandom.current().nextInt(1, grafiki.length);
             for(int k=0; k<liczbaMutowanychDni; k++){
                 random2 = ThreadLocalRandom.current().nextInt(1, 31);
-//              System.out.println("Mutowany grafikDzienny dla dnia nr "+random2+"\n");
                 grafiki[random1].losowoZmienGrafikDzienny(random2,pracownicy);
             }
-//            System.out.println("po mutacji:\n");
-//            grafiki[random1].wypisz();
-//            grafiki[random1].sprawdzPoprawnosc();
-//            grafiki[random1].zliczPoprawneDni();
+            grafiki[random1].zliczPoprawneDni();
         }
-
-
+        sortuj();
     }
-
 }
