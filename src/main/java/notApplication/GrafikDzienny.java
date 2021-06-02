@@ -40,7 +40,7 @@ public class GrafikDzienny {
     }
 
 
-    public boolean sprawdzPoprawnosc(){
+    public boolean sprawdzPoprawnosc(GrafikDzienny poprzedniDzien){
 //        if(dzienTygodnia.equals("Sobota"))
 //        Na razie na sztywno sprawdzam te soboty i niedziele
         if(dzien==5 || dzien==12 || dzien==19 || dzien==26) {
@@ -66,6 +66,14 @@ public class GrafikDzienny {
 
             if(!sprawdzPodwojneZmiany()){
 //                System.out.println("Powód: Napotkano podwojne zmiany\n");
+                return false;
+            }
+
+            if(!sprawdzZmianyRW(poprzedniDzien)){
+                return false;
+            }
+
+            if(!sprawdzIloscH()){
                 return false;
             }
 
@@ -96,4 +104,18 @@ public class GrafikDzienny {
     public boolean sprawdzNiedziele(){
         return porannaZmiana == null && wieczornaZmiana == null;
     }
+
+    //Sprawdza, czy osoba pracująca na wieczór nie pracuje następnego dnia rano
+    public boolean sprawdzZmianyRW(GrafikDzienny poprzedniDzien){
+        if(poprzedniDzien==null) return true;
+        return porannaZmiana != poprzedniDzien.wieczornaZmiana;
+    }
+
+    //Sprawdza, czy pracownik nie przekroczyl
+    // albo 96h (384h/4 = 96) - wszystkie godziny na 4 pracownikow - daje najslabsze wyniki
+    // albo 120h albo 112h bo czasami zdarzają się takie wyniki czyli to jest jakiś nadmiar
+    public boolean sprawdzIloscH(){
+        return porannaZmiana.iloscH<=120 && wieczornaZmiana.iloscH<=120;
+    }
+
 }

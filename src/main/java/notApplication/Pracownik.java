@@ -5,15 +5,9 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class Pracownik {
-    private Object Pracownik;
-
-    @Override
-    public String toString() {
-        return "id:"+idPracownika;
-    }
-
     int idPracownika;
     int tabDostepnosci[] = new int[31];
+    int iloscH = 0;
 
     public Pracownik(int id){
         this.idPracownika = id;
@@ -41,5 +35,10 @@ public class Pracownik {
             }
 
         }
+    }
+
+    @Override
+    public String toString() {
+        return "id:"+idPracownika;
     }
 }

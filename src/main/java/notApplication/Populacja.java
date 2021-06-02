@@ -52,4 +52,26 @@ public class Populacja {
         }
         sortuj();
     }
+
+    public void krzyzuj(int procentKrzyzowanychGrafikow, int procentKrzyzowanychDni, Pracownik[] pracownicy){
+        int liczbaKrzyzowanychGrafikow = (int) (grafiki.length*procentKrzyzowanychGrafikow*0.01);
+        int liczbaKrzyzowanychDni = (int)(30*procentKrzyzowanychDni*0.01);
+        int grafik1,grafik2, dzien1;
+        GrafikDzienny pom;
+        for(int i=0; i<liczbaKrzyzowanychGrafikow; i++){
+            do{
+            grafik1 = ThreadLocalRandom.current().nextInt(1, grafiki.length);
+            grafik2 = ThreadLocalRandom.current().nextInt(1, grafiki.length);}
+            while(grafik1==grafik2);
+
+            for(int k=0; k<liczbaKrzyzowanychDni; k++){
+                dzien1 = ThreadLocalRandom.current().nextInt(1, 31);
+                pom = grafiki[grafik2].getGrafik().get(dzien1);
+                grafiki[grafik2].getGrafik().set(dzien1, grafiki[grafik1].getGrafik().get(dzien1));
+                grafiki[grafik1].getGrafik().set(dzien1, pom);
+            }
+            grafiki[grafik1].zliczPoprawneDni();
+            grafiki[grafik2].zliczPoprawneDni();
+        }
+    }
 }

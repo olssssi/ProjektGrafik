@@ -67,12 +67,19 @@ public class Main {
         System.out.println("\nPO SELEKCJI:\n");
         System.out.println(populacja);
 
-        // Krzyżowanie -- jeszcze myślę jak to zrobić
+        // Krzyżowanie
+        populacja.krzyzuj(60,50,pracownicy);
+        populacja.sortuj();
+        System.out.println("\nPO KRZYZOWANIU:\n");
+        System.out.println(populacja);
 
         // Mutacja
-        populacja.mutuj(20,50,pracownicy);
+        populacja.mutuj(20,20,pracownicy);
         System.out.println("\nPO MUTACJI:\n");
         System.out.println(populacja);
+
+        //wyswietlanie najlepszego grafiku
+        populacja.grafiki[0].wypisz();
 
     }
 }

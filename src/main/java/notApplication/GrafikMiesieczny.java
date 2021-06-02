@@ -7,15 +7,13 @@ import java.util.Comparator;
 public class GrafikMiesieczny  implements Comparator<GrafikMiesieczny>{
     ArrayList<GrafikDzienny> grafik;
     int ocena;
+    ArrayList<Integer> iloscHPracownikow;
 
     public GrafikMiesieczny() {
         grafik = new ArrayList<GrafikDzienny>(31);
         ocena=0;
         grafik.add(null);
-
-    }
-
-    public void uzupelnijGrafikDanegoDnia(Pracownik[] pracownicy, int dzien){
+        iloscHPracownikow = new ArrayList<Integer>(4);//wpisalam na razie 4 nie wiem czy to nie powinno być zmienne
 
     }
 
@@ -72,7 +70,8 @@ public class GrafikMiesieczny  implements Comparator<GrafikMiesieczny>{
         // Po stworzeniu grafiku od razu obliczamy jego ocenę
         zliczPoprawneDni();
 
-
+        //tak samo ilość przepracowanych przez pracownika godzin
+        zliczIloscH(pracownicy);
     }
 
     public void losowoZmienGrafikDzienny(int numerDnia, Pracownik[] pracownicy){
@@ -152,6 +151,8 @@ public class GrafikMiesieczny  implements Comparator<GrafikMiesieczny>{
         System.out.println("|"+grafik.get(28).wieczornaZmiana+"                    |"+grafik.get(29).wieczornaZmiana+"                    |"+grafik.get(30).wieczornaZmiana+"                    |                        |                        |                        |                        |");
         System.out.println("_______________________________________________________________________________________________________________________________________________________________________________");
 
+        wypiszIloscH();
+
         if(sprawdzPoprawnosc()) System.out.println("Stworzono poprawny grafik");
         else    System.out.println("Nie stworzono poprawnego grafiku");
 
@@ -159,10 +160,34 @@ public class GrafikMiesieczny  implements Comparator<GrafikMiesieczny>{
 
 
     //TODO Trzeba jeszcze sprawdzać, czy pracownik pracuje odpowiednia ilosc h w miesiacu
+    public void zliczIloscH(Pracownik[] pracownicy){
+        for(int i=1; i<pracownicy.length; i++){
+            pracownicy[i].iloscH=0;
+        }
+
+            for(int j=1; j<=30; j++){
+                if(grafik.get(j).porannaZmiana!=null)
+                grafik.get(j).porannaZmiana.iloscH+=8;
+                if(grafik.get(j).wieczornaZmiana!=null)
+                grafik.get(j).wieczornaZmiana.iloscH+=8;
+            }
+        for(int j=1; j<pracownicy.length; j++){
+           iloscHPracownikow.add(pracownicy[j].iloscH);
+        }
+
+    }
+
+    public boolean wypiszIloscH(){
+
+        for(int j=0; j<iloscHPracownikow.size(); j++){
+            System.out.println("id: "+ (j+1) + " ilosc h: "+ iloscHPracownikow.get(j));
+        }
+        return true;
+    }
     //Specjalnie nie robiłam tego na razie, bo nasz algorytm jeszcze nie znajduje tak dobrego rozwiazania
     public boolean sprawdzPoprawnosc(){
         for(int i=1; i<=30; i++){
-            if(!grafik.get(i).sprawdzPoprawnosc()) {
+            if(!grafik.get(i).sprawdzPoprawnosc(grafik.get(i-1))) {
                 System.out.printf("Pierwszy napotkany niepoprawny dzień: "+i+"\n");
                 return false;
             }
@@ -173,7 +198,7 @@ public class GrafikMiesieczny  implements Comparator<GrafikMiesieczny>{
     public int zliczPoprawneDni(){
         int iloscPoprawnychDni = 0;
         for(int i=1; i<=30; i++){
-            if(grafik.get(i).sprawdzPoprawnosc()) {
+            if(grafik.get(i).sprawdzPoprawnosc(grafik.get(i-1))) {
                 iloscPoprawnychDni++;
             }
         }
@@ -184,6 +209,10 @@ public class GrafikMiesieczny  implements Comparator<GrafikMiesieczny>{
 
     public ArrayList<GrafikDzienny> getGrafik() {
         return grafik;
+    }
+
+    public GrafikDzienny getGrafik(int dzien) {
+        return grafik.get(dzien);
     }
 
     @Override
