@@ -4,96 +4,42 @@ import java.sql.SQLOutput;
 
 public class GrafikDzienny {
     int dzien;
-    String dzienTygodnia;
     Pracownik porannaZmiana;
     Pracownik wieczornaZmiana;
 
-    public GrafikDzienny(int dzien, String dzienTygodnia) {
-        this.dzien = dzien;
-        this.dzienTygodnia = dzienTygodnia;
-        this.porannaZmiana = null;
-        this.wieczornaZmiana = null;
-    }
-
-    public GrafikDzienny(int dzien, String dzienTygodnia,
+    public GrafikDzienny(int dzien,
                          Pracownik porannaZmiana, Pracownik wieczornaZmiana) {
         this.dzien = dzien;
-        this.dzienTygodnia = dzienTygodnia;
         this.porannaZmiana = porannaZmiana;
         this.wieczornaZmiana = wieczornaZmiana;
     }
-
-    public Pracownik getPorannaZmiana() {
-        return porannaZmiana;
-    }
-
-    public void setPorannaZmiana(Pracownik porannaZmiana) {
-        this.porannaZmiana = porannaZmiana;
-    }
-
-    public Pracownik getWieczornaZmiana() {
-        return wieczornaZmiana;
-    }
-
-    public void setWieczornaZmiana(Pracownik wieczornaZmiana) {
-        this.wieczornaZmiana = wieczornaZmiana;
-    }
-
 
     public boolean sprawdzPoprawnosc(GrafikDzienny poprzedniDzien){
-//        if(dzienTygodnia.equals("Sobota"))
-//        Na razie na sztywno sprawdzam te soboty i niedziele
+        // Soboty
         if(dzien==5 || dzien==12 || dzien==19 || dzien==26) {
             if (!sprawdzSobote()) {
-//                System.out.println("Powód: Sobotnie popołudnie powinno być niepracujące\n");
                 return false;
             }
-//            else if(dzienTygodnia.equals("Niedziela"))
-        }else if(dzien==6 || dzien==13 || dzien==20 || dzien==27) {
+        }else
+            // Niedziele
+            if(dzien==6 || dzien==13 || dzien==20 || dzien==27) {
             if (!sprawdzNiedziele()) {
-//                System.out.println("Powód: Niedziela powinna być niepracująca\n");
                 return false;
             }
         }else{
             if(porannaZmiana == null){
-//                System.out.println("Powód: Brak osoby na poranną zmianę w ciągu tygodnia\n");
                 return false;
             }
             if(wieczornaZmiana == null){
-//                System.out.println("Powód: Brak osoby na wieczorną zmianę w ciągu tygodnia\n");
                 return false;
             }
-
-            if(!sprawdzPodwojneZmiany()){
-//                System.out.println("Powód: Napotkano podwojne zmiany\n");
-                return false;
-            }
-
             if(!sprawdzZmianyRW(poprzedniDzien)){
-//                System.out.println("Powód: Nie można pracowac dwie zmiany pod rzad\n");
                 return false;
             }
-
             if(!sprawdzIloscH()){
-//                System.out.println("Powód: Zbyt wiele przepracowanych godzin\n");
                 return false;
             }
-
         }
-        return true;
-    }
-
-    // Sprawdza, czy nie ma tej samej osoby na dzień, co na wieczór
-    public boolean sprawdzPodwojneZmiany(){
-        return wieczornaZmiana != porannaZmiana;
-    }
-
-    // Sprawdza, czy w dzien roboczy jest pracownik na ranną i na wieczorną zmianę
-    public boolean sprawdzDzien(){
-        if(porannaZmiana == null)
-            return false;
-        if(wieczornaZmiana == null)
-            return false;
         return true;
     }
 
@@ -120,4 +66,54 @@ public class GrafikDzienny {
         return porannaZmiana.iloscH<=120 && wieczornaZmiana.iloscH<=120;
     }
 
+    public void wypiszBledy(int id, GrafikDzienny poprzedniDzien) {
+        // Soboty
+        if(dzien==5 || dzien==12 || dzien==19 || dzien==26) {
+            if (!sprawdzSobote()) {
+                if(id>=10)
+                    System.out.println("      " +id+ "         |     pracujące sobotnie popołudnie");
+                else
+                    System.out.println("       " +id+ "         |     pracujące sobotnie popołudnie");
+                return;
+            }
+        // Niedziele
+        }else if(dzien==6 || dzien==13 || dzien==20 || dzien==27) {
+            if (!sprawdzNiedziele()) {
+                if(id>=10)
+                    System.out.println("      " +id+ "         |     pracująca niedziela");
+                else
+                    System.out.println("       " +id+ "         |     pracująca niedziela");
+                return;
+            }
+        }else{
+            if(porannaZmiana == null){
+                if(id>=10)
+                    System.out.println("      " +id+ "         |     brak osoby na poranną zmianę");
+                else
+                    System.out.println("       " +id+ "         |     brak osoby na poranną zmianę");
+                return;
+            }
+            if(wieczornaZmiana == null){
+                if(id>=10)
+                    System.out.println("      " +id+ "         |     brak osoby na wieczorną zmianę");
+                else
+                    System.out.println("       " +id+ "         |     brak osoby na wieczorną zmianę");
+                return;
+            }
+            if(!sprawdzZmianyRW(poprzedniDzien)){
+                if(id>=10)
+                    System.out.println("      " +id+ "         |     zmiana ranna taka sama jak wieczorna poprzedniego dnia");
+                else
+                    System.out.println("       " +id+ "         |     osoba pracująca na dwie zmiany w ciągu dnia");
+                return;
+            }
+            if(!sprawdzIloscH()){
+                if(id>=10)
+                    System.out.println("      " +id+ "         |     jedna z osób właśnie przekroczyła 120h w miesiącu");
+                else
+                    System.out.println("       " +id+ "         |     jedna z osób właśnie przekroczyła 120h w miesiącu");
+                return;
+            }
+        }
+    }
 }

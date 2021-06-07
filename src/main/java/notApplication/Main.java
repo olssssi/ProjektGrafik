@@ -166,8 +166,7 @@ public class Main {
         TimeUnit.SECONDS.sleep(3);
         populacja.grafiki[0].wypisz();
 
-        System.out.println("\n\n\nSprawdzam najlepszy grafik:\n\n");
-        populacja.grafiki[0].sprawdzPoprawnosc();
-
+        System.out.println("\n\n\nSprawdzam najlepszy grafik:");
+//        populacja.grafiki[0].sprawdzPoprawnosc();
     }
 }

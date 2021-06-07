@@ -14,19 +14,16 @@ public class GrafikMiesieczny implements Comparator<GrafikMiesieczny> {
         grafik = new ArrayList<GrafikDzienny>(31);
         ocena = 0;
         grafik.add(null);
-        iloscHPracownikow = new ArrayList<Integer>(4);//wpisalam na razie 4 nie wiem czy to nie powinno być zmienne
+        iloscHPracownikow = new ArrayList<Integer>(4);
     }
 
     public void uzupelnijGrafik(Pracownik[] pracownicy) {
         int rand1 = 0, rand2 = 0, m = -1, n = -1;
         for (int i = 1; i <= 30; i++) {
-            // Te m wprowadziłam po to, żeby pętla nie wykonywała się w nieskończoność. 10 razy szuka randomowej osoby i sprawdza,
-            // Czy ma dyspozycyjność danego dnia. Jeżeli 10 razy nie trafi na taką osobę, to później wprowadza null
-            // Czyli, że na tą ranną zmianę nie ma komu pracować. Tak samo robię z n i wieczorną zmianą
+            // m jako zmienna stopująca wyszukiwanie pracownika. Tak samo n niżej
             for (m = 0; m < 10; m++) {
                 rand1 = ThreadLocalRandom.current().nextInt(1, 5);
                 if (pracownicy[rand1].tabDostepnosci[i] == 1) {
-//                    System.out.println("Znaleziono osobe na ranna zmiane w dniu nr " + i + "\n");
                     m = -1;
                     break;
                 }
@@ -38,7 +35,6 @@ public class GrafikMiesieczny implements Comparator<GrafikMiesieczny> {
                 for (n = 0; n < 10; n++) {
                     rand2 = ThreadLocalRandom.current().nextInt(1, 5);
                     if ((pracownicy[rand1] != pracownicy[rand2]) && pracownicy[rand2].tabDostepnosci[i] == 1) {
-//                        System.out.println("Znaleziono osobe na wieczorna zmiane w dniu nr " + i + "\n");
                         n = -1;
                         break;
                     }
@@ -47,23 +43,23 @@ public class GrafikMiesieczny implements Comparator<GrafikMiesieczny> {
 
             // Znaleziono osobę na ranną i wieczorną zmianę
             if (m == -1 && n == -1) {
-                GrafikDzienny grafikDzienny = new GrafikDzienny(i, "poniedzialek", pracownicy[rand1], pracownicy[rand2]);
+                GrafikDzienny grafikDzienny = new GrafikDzienny(i, pracownicy[rand1], pracownicy[rand2]);
                 grafik.add(grafikDzienny);
 
             }
             // Znaleziono osobę na ranną zmianę
             else if (m == -1 && n != -1) {
-                GrafikDzienny grafikDzienny = new GrafikDzienny(i, "poniedzialek", pracownicy[rand1], null);
+                GrafikDzienny grafikDzienny = new GrafikDzienny(i, pracownicy[rand1], null);
                 grafik.add(grafikDzienny);
             }
             // Znaleziono osobę na wieczorną zmianę
             else if (m != -1 && n == -1) {
-                GrafikDzienny grafikDzienny = new GrafikDzienny(i, "poniedzialek", null, pracownicy[rand2]);
+                GrafikDzienny grafikDzienny = new GrafikDzienny(i, null, pracownicy[rand2]);
                 grafik.add(grafikDzienny);
             }
             // Nie znaleziono osób ani na ranną ani na wieczorną zmianę
             else {
-                GrafikDzienny grafikDzienny = new GrafikDzienny(i, "poniedzialek", null, null);
+                GrafikDzienny grafikDzienny = new GrafikDzienny(i, null, null);
                 grafik.add(grafikDzienny);
             }
 
@@ -72,7 +68,7 @@ public class GrafikMiesieczny implements Comparator<GrafikMiesieczny> {
         // Po stworzeniu grafiku od razu obliczamy jego ocenę
         zliczPoprawneDni();
 
-        //tak samo ilość przepracowanych przez pracownika godzin
+        // Tak samo ilość przepracowanych przez pracownika godzin
         zliczIloscH(pracownicy);
     }
 
@@ -82,7 +78,6 @@ public class GrafikMiesieczny implements Comparator<GrafikMiesieczny> {
         for (m = 0; m < 10; m++) {
             rand1 = ThreadLocalRandom.current().nextInt(1, 5);
             if (pracownicy[rand1].tabDostepnosci[numerDnia] == 1) {
-//                    System.out.println("Znaleziono osobe na ranna zmiane w dniu nr " + i + "\n");
                 m = -1;
                 break;
             }
@@ -93,7 +88,6 @@ public class GrafikMiesieczny implements Comparator<GrafikMiesieczny> {
             for (n = 0; n < 10; n++) {
                 rand2 = ThreadLocalRandom.current().nextInt(1, 5);
                 if (pracownicy[rand2].tabDostepnosci[numerDnia] == 1) {
-//                        System.out.println("Znaleziono osobe na wieczorna zmiane w dniu nr " + i + "\n");
                     n = -1;
                     break;
                 }
@@ -101,38 +95,29 @@ public class GrafikMiesieczny implements Comparator<GrafikMiesieczny> {
         }
         // Znaleziono osobę na ranną i wieczorną zmianę
         if (m == -1 && n == -1) {
-//            GrafikDzienny grafikDzienny = new GrafikDzienny(numerDnia, "poniedzialek", pracownicy[rand1], pracownicy[rand2]);
-//            grafik.add(grafikDzienny);
             grafikDzienny.porannaZmiana = pracownicy[rand1];
             grafikDzienny.wieczornaZmiana = pracownicy[rand2];
 
         }
         // Znaleziono osobę na ranną zmianę
         else if (m == -1 && n != -1) {
-//            GrafikDzienny grafikDzienny = new GrafikDzienny(numerDnia, "poniedzialek", pracownicy[rand1], null);
-//            grafik.add(grafikDzienny);
             grafikDzienny.porannaZmiana = pracownicy[rand1];
             grafikDzienny.wieczornaZmiana = null;
         }
         // Znaleziono osobę na wieczorną zmianę
         else if (m != -1 && n == -1) {
-//            GrafikDzienny grafikDzienny = new GrafikDzienny(numerDnia, "poniedzialek", null, pracownicy[rand2]);
-//            grafik.add(grafikDzienny);
             grafikDzienny.porannaZmiana = null;
             grafikDzienny.wieczornaZmiana = pracownicy[rand2];
         }
+
         // Nie znaleziono osób ani na ranną ani na wieczorną zmianę
         else {
-//            GrafikDzienny grafikDzienny = new GrafikDzienny(numerDnia, "poniedzialek", null, null);
-//            grafik.add(grafikDzienny);
             grafikDzienny.porannaZmiana = null;
             grafikDzienny.wieczornaZmiana = null;
         }
     }
 
     public void wypisz() throws InterruptedException {
-        //wyswietlanie tabelki
-        //sout +TAB  -skrot do system out
         System.out.println("|__________PON___________|___________WT___________|___________ŚR___________|__________CZW___________|__________PT____________|__________SB____________|__________NDZ___________|");
         System.out.println("|________________________|________________________|________________________|________________________|________________________|________________________|________________________|");
         System.out.println("|                        |           1            |           2            |           3            |           4            |           5            |           6            |");
@@ -161,11 +146,18 @@ public class GrafikMiesieczny implements Comparator<GrafikMiesieczny> {
         wypiszIloscH();
 
         TimeUnit.SECONDS.sleep(4);
-        System.out.println("\nPOPRAWNOŚĆ:\n");
+        System.out.println("\nPOPRAWNOŚĆ ("+ocena+"/30):\n");
         TimeUnit.SECONDS.sleep(2);
-        if (sprawdzPoprawnosc()) System.out.println("Stworzono poprawny grafik");
-        else System.out.println("Nie stworzono poprawnego w całości grafiku");
+        wypiszBledy();
 
+    }
+
+    void wypiszBledy() throws InterruptedException {
+        System.out.println("     ID DNIA     |     OPIS BŁĘDU");
+        for (int i = 1; i <= 30; i++){
+            grafik.get(i).wypiszBledy(i, grafik.get(i - 1));}
+
+        TimeUnit.SECONDS.sleep(2);
     }
 
 
@@ -201,7 +193,7 @@ public class GrafikMiesieczny implements Comparator<GrafikMiesieczny> {
     public boolean sprawdzPoprawnosc() {
         for (int i = 1; i <= 30; i++) {
             if (!grafik.get(i).sprawdzPoprawnosc(grafik.get(i - 1))) {
-                System.out.printf("Pierwszy napotkany niepoprawny dzień: " + i + "\n");
+//                System.out.printf("Pierwszy napotkany niepoprawny dzień: " + i + "\n");
                 return false;
             }
         }
