@@ -2,9 +2,11 @@ package notApplication;
 
 import java.io.FileNotFoundException;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.TimeUnit;
 
 public class Main {
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) throws FileNotFoundException, InterruptedException {
+        double najlepszy=0,najgorszy=0;
         Pracownik[] pracownicy = new Pracownik[5];
         Pracownik pracownik1 = new Pracownik(1);
         Pracownik pracownik2 = new Pracownik(2);
@@ -60,25 +62,71 @@ public class Main {
         populacja.grafiki[9]=grafikMiesieczny9;
         populacja.grafiki[10]=grafikMiesieczny10;
         populacja.sortuj();
-        System.out.println(populacja);
+
+        System.out.println("\n_______________________FAZA TWORZENIA POPULACJI:_______________________________________");
+        System.out.println("W sposób losowy zostaje stworzonych 11 grafików.");
+        TimeUnit.SECONDS.sleep(3);
+        System.out.println("\n. . .\n");
+        TimeUnit.SECONDS.sleep(3);
+        System.out.println("_______________________WYNIKI PO LOSOWANIU:____________________________________________");
+        System.out.println("Poprawność aktualnie najlepszego grafiku: "+populacja.grafiki[0].ocena+"/30");
+        System.out.println("Poprawność aktualnie najgorszego grafiku: "+populacja.grafiki[10].ocena+"/30\n\n\n");
+        TimeUnit.SECONDS.sleep(4);
+
+
 
         // Selekcja
+        System.out.println("\n\n_______________________FAZA SELEKCJI___________________________________________________");
+        System.out.println("Rozpoczynana jest selekcja. Zostanie przeprowadzonych 100 iteracji. " +
+                            "\nW każdej z nich zostanie odrzucone 20% najsłabszych grafików miesięcznych." +
+                            "\nNa ich miejsce zostaną wylosowane nowe.");
         populacja.dokonajSelekcji(100,20,pracownicy);
-        System.out.println("\nPO SELEKCJI:\n");
-        System.out.println(populacja);
+        TimeUnit.SECONDS.sleep(6);
+        System.out.println("\n. . .\n");
+        TimeUnit.SECONDS.sleep(6);
+        System.out.println("_______________________WYNIKI PO SELEKCJI:_____________________________________________");
+        System.out.println("Poprawność aktualnie najlepszego grafiku: "+populacja.grafiki[0].ocena+"/30");
+        System.out.println("Poprawność aktualnie najgorszego grafiku: "+populacja.grafiki[10].ocena+"/30\n\n\n");
+        TimeUnit.SECONDS.sleep(4);
+
+
 
         // Krzyżowanie
+        System.out.println("\n\n_______________________FAZA KRZYŻOWANIA________________________________________________");
+        System.out.println("Rozpoczynana jest faza krzyżowania. 60% grafików miesięcznych zostanie skrzyżowanych między sobą." +
+                            "\nOznacza to, że 50% dni każdego z nich zostanie wymienione na tą samą ilość dni z innego krzyżowanego miesiąca.");
         populacja.krzyzuj(60,50,pracownicy);
         populacja.sortuj();
-        System.out.println("\nPO KRZYZOWANIU:\n");
-        System.out.println(populacja);
+        TimeUnit.SECONDS.sleep(6);
+        System.out.println("\n. . .\n");
+        TimeUnit.SECONDS.sleep(6);
+        System.out.println("_______________________WYNIKI PO KRZYŻOWANIU:__________________________________________");
+        System.out.println("Poprawność aktualnie najlepszego grafiku: "+populacja.grafiki[0].ocena+"/30");
+        System.out.println("Poprawność aktualnie najgorszego grafiku: "+populacja.grafiki[10].ocena+"/30\n\n\n");
+        TimeUnit.SECONDS.sleep(4);
+
+
 
         // Mutacja
+        System.out.println("\n\n_______________________FAZA MUTACJI____________________________________________________");
+        System.out.println("Rozpoczynana jest faza mutacji. 20% grafików miesięcznych zostanie zmutowanych." +
+                            "\nOznacza to, że 20% dni każdego z grafików zostanie na nowo wylosowane.");
         populacja.mutuj(20,20,pracownicy);
-        System.out.println("\nPO MUTACJI:\n");
-        System.out.println(populacja);
+        TimeUnit.SECONDS.sleep(6);
+        System.out.println("\n. . .\n");
+        TimeUnit.SECONDS.sleep(6);
+        System.out.println("_______________________WYNIKI PO MUTACJI:______________________________________________");
+        System.out.println("Poprawność aktualnie najlepszego grafiku: "+populacja.grafiki[0].ocena+"/30");
+        System.out.println("Poprawność aktualnie najgorszego grafiku: "+populacja.grafiki[10].ocena+"/30\n\n\n");
+        TimeUnit.SECONDS.sleep(4);
+
 
         //wyswietlanie najlepszego grafiku
+
+        System.out.println("_______________________________________________________________________________________");
+        System.out.println("_______________________RAPORT KOŃCOWY:_________________________________________________");
+        System.out.println("\n\nWidok najlepszego grafiku:\n");
+        TimeUnit.SECONDS.sleep(3);
         populacja.grafiki[0].wypisz();
 
     }
