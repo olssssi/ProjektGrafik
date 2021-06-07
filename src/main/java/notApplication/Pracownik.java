@@ -8,9 +8,11 @@ public class Pracownik {
     int idPracownika;
     int tabDostepnosci[] = new int[31];
     int iloscH = 0;
+    boolean flaga=false;
 
     public Pracownik(int id){
         this.idPracownika = id;
+        this.flaga=false;
     }
 
     void wpiszDostepnosc() throws FileNotFoundException {

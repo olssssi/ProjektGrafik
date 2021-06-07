@@ -63,10 +63,16 @@ public class GrafikDzienny {
     // albo 96h (384h/4 = 96) - wszystkie godziny na 4 pracownikow - daje najslabsze wyniki
     // albo 120h albo 112h bo czasami zdarzają się takie wyniki czyli to jest jakiś nadmiar
     public boolean sprawdzIloscH(){
-        return porannaZmiana.iloscH<=120 && wieczornaZmiana.iloscH<=120;
+        return (porannaZmiana != null && porannaZmiana.iloscH<=120) && (wieczornaZmiana != null && wieczornaZmiana.iloscH<=120);
     }
 
-    public void wypiszBledy(int id, GrafikDzienny poprzedniDzien) {
+    public Pracownik znajdzPracoholika(){
+        if(porannaZmiana != null && porannaZmiana.iloscH>120) return porannaZmiana;
+        else if (wieczornaZmiana != null && wieczornaZmiana.iloscH>120) return wieczornaZmiana;
+        return null;
+    }
+
+    public void wypiszBledy(int id, GrafikDzienny poprzedniDzien, Pracownik[] pracownicy) {
         // Soboty
         if(dzien==5 || dzien==12 || dzien==19 || dzien==26) {
             if (!sprawdzSobote()) {
@@ -104,14 +110,20 @@ public class GrafikDzienny {
                 if(id>=10)
                     System.out.println("      " +id+ "         |     zmiana ranna taka sama jak wieczorna poprzedniego dnia");
                 else
-                    System.out.println("       " +id+ "         |     osoba pracująca na dwie zmiany w ciągu dnia");
+                    System.out.println("       " +id+ "         |     zmiana ranna taka sama jak wieczorna poprzedniego dnia");
                 return;
             }
-            if(!sprawdzIloscH()){
-                if(id>=10)
-                    System.out.println("      " +id+ "         |     jedna z osób właśnie przekroczyła 120h w miesiącu");
-                else
-                    System.out.println("       " +id+ "         |     jedna z osób właśnie przekroczyła 120h w miesiącu");
+            if(znajdzPracoholika()!=null){
+                Pracownik pracownik=znajdzPracoholika();
+                if(!pracownik.flaga && id>=10){
+                    System.out.println("      " +id+ "         |     osoba "+pracownik.idPracownika+" przekroczyla 120h");
+                    pracownicy[pracownik.idPracownika].flaga=true;
+                }
+
+                else if(!pracownik.flaga){
+                    System.out.println("       " +id+ "         |     osoba "+pracownik.idPracownika+" przekroczyla 120h");
+                    pracownicy[pracownik.idPracownika].flaga=true;
+                }
                 return;
             }
         }

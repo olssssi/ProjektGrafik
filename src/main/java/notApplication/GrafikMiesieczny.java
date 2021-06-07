@@ -117,7 +117,7 @@ public class GrafikMiesieczny implements Comparator<GrafikMiesieczny> {
         }
     }
 
-    public void wypisz() throws InterruptedException {
+    public void wypisz(Pracownik[] pracownicy) throws InterruptedException {
         System.out.println("|__________PON___________|___________WT___________|___________ŚR___________|__________CZW___________|__________PT____________|__________SB____________|__________NDZ___________|");
         System.out.println("|________________________|________________________|________________________|________________________|________________________|________________________|________________________|");
         System.out.println("|                        |           1            |           2            |           3            |           4            |           5            |           6            |");
@@ -143,19 +143,19 @@ public class GrafikMiesieczny implements Comparator<GrafikMiesieczny> {
 
         TimeUnit.SECONDS.sleep(4);
 
-        wypiszIloscH();
+        wypiszIloscH(pracownicy);
 
         TimeUnit.SECONDS.sleep(4);
         System.out.println("\nPOPRAWNOŚĆ ("+ocena+"/30):\n");
         TimeUnit.SECONDS.sleep(2);
-        wypiszBledy();
+        wypiszBledy(pracownicy);
 
     }
 
-    void wypiszBledy() throws InterruptedException {
+    void wypiszBledy(Pracownik[] pracownicy) throws InterruptedException {
         System.out.println("     ID DNIA     |     OPIS BŁĘDU");
         for (int i = 1; i <= 30; i++){
-            grafik.get(i).wypiszBledy(i, grafik.get(i - 1));}
+            grafik.get(i).wypiszBledy(i, grafik.get(i - 1), pracownicy);}
 
         TimeUnit.SECONDS.sleep(2);
     }
@@ -178,13 +178,13 @@ public class GrafikMiesieczny implements Comparator<GrafikMiesieczny> {
 
     }
 
-    public boolean wypiszIloscH() throws InterruptedException {
+    public boolean wypiszIloscH(Pracownik[] pracownicy) throws InterruptedException {
         TimeUnit.SECONDS.sleep(4);
         System.out.println("\nILOŚĆ GODZIN PRZEPRACOWANYCH PRZEZ POSZCZEGÓLNYCH PRACOWNIKÓW:\n");
         TimeUnit.SECONDS.sleep(2);
         System.out.println("ID PRACOWNIKA    |   ILOŚĆ GODZIN");
-        for (int j = 0; j < iloscHPracownikow.size(); j++) {
-            System.out.println("      " + (j + 1) + "          |        " + iloscHPracownikow.get(j));
+        for (int j = 1; j < pracownicy.length; j++) {
+            System.out.println("      " + j + "          |        " + pracownicy[j].iloscH);
         }
         return true;
     }

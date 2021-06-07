@@ -74,7 +74,7 @@ public class Main {
         System.out.println("Poprawność aktualnie najgorszego grafiku: "+populacja.grafiki[10].ocena+"/30\n\n\n");
         TimeUnit.SECONDS.sleep(4);
         System.out.println("Widok aktualnie najlepszego grafiku:");
-        populacja.grafiki[0].wypisz();
+        populacja.grafiki[0].wypisz(pracownicy);
         TimeUnit.SECONDS.sleep(8);
 
 
@@ -101,7 +101,7 @@ public class Main {
         System.out.println("Poprawność aktualnie najgorszego grafiku: "+populacja.grafiki[10].ocena+"/30\n\n\n");
         TimeUnit.SECONDS.sleep(4);
         System.out.println("Widok aktualnie najlepszego grafiku:");
-        populacja.grafiki[0].wypisz();
+        populacja.grafiki[0].wypisz(pracownicy);
         TimeUnit.SECONDS.sleep(8);
 
 
@@ -129,7 +129,7 @@ public class Main {
         System.out.println("Poprawność aktualnie najgorszego grafiku: "+populacja.grafiki[10].ocena+"/30\n\n\n");
         TimeUnit.SECONDS.sleep(4);
         System.out.println("Widok aktualnie najlepszego grafiku:");
-        populacja.grafiki[0].wypisz();
+        populacja.grafiki[0].wypisz(pracownicy);
         TimeUnit.SECONDS.sleep(8);
 
 
@@ -154,17 +154,18 @@ public class Main {
         System.out.println("Poprawność aktualnie najgorszego grafiku: "+populacja.grafiki[10].ocena+"/30\n\n\n");
         TimeUnit.SECONDS.sleep(4);
         System.out.println("Widok aktualnie najlepszego grafiku:");
-        populacja.grafiki[0].wypisz();
+        populacja.grafiki[0].wypisz(pracownicy);
         TimeUnit.SECONDS.sleep(8);
 
 
         //wyswietlanie najlepszego grafiku
 
+        System.out.println("\n\n");
         System.out.println("_______________________________________________________________________________________");
         System.out.println("_______________________RAPORT KOŃCOWY:_________________________________________________");
-        System.out.println("\n\nWidok najlepszego grafiku:\n");
+        System.out.println("\n\nOstateczny widok najlepszego grafiku:\n");
         TimeUnit.SECONDS.sleep(3);
-        populacja.grafiki[0].wypisz();
+        populacja.grafiki[0].wypisz(pracownicy);
 
         System.out.println("\n\n\nSprawdzam najlepszy grafik:");
 //        populacja.grafiki[0].sprawdzPoprawnosc();
