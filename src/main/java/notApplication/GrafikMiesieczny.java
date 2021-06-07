@@ -156,6 +156,8 @@ public class GrafikMiesieczny implements Comparator<GrafikMiesieczny> {
         System.out.println("|" + grafik.get(28).wieczornaZmiana + "                    |" + grafik.get(29).wieczornaZmiana + "                    |" + grafik.get(30).wieczornaZmiana + "                    |                        |                        |                        |                        |");
         System.out.println("_______________________________________________________________________________________________________________________________________________________________________________");
 
+        TimeUnit.SECONDS.sleep(4);
+
         wypiszIloscH();
 
         TimeUnit.SECONDS.sleep(4);
