@@ -186,7 +186,7 @@ public class GrafikMiesieczny implements Comparator<GrafikMiesieczny> {
 
     public boolean wypiszIloscH() throws InterruptedException {
         TimeUnit.SECONDS.sleep(4);
-        System.out.println("\nIlość godzin poszczególnych pracowników:\n");
+        System.out.println("\nILOŚĆ GODZIN PRZEPRACOWANYCH PRZEZ POSZCZEGÓLNYCH PRACOWNIKÓW:\n");
         TimeUnit.SECONDS.sleep(2);
         System.out.println("ID PRACOWNIKA    |   ILOŚĆ GODZIN");
         for (int j = 0; j < iloscHPracownikow.size(); j++) {

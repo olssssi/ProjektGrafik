@@ -45,35 +45,37 @@ public class GrafikDzienny {
 //        Na razie na sztywno sprawdzam te soboty i niedziele
         if(dzien==5 || dzien==12 || dzien==19 || dzien==26) {
             if (!sprawdzSobote()) {
-//                System.out.println("Powód: Sobotnie popołudnie powinno być niepracujące\n");
+                System.out.println("Powód: Sobotnie popołudnie powinno być niepracujące\n");
                 return false;
             }
 //            else if(dzienTygodnia.equals("Niedziela"))
         }else if(dzien==6 || dzien==13 || dzien==20 || dzien==27) {
             if (!sprawdzNiedziele()) {
-//                System.out.println("Powód: Niedziela powinna być niepracująca\n");
+                System.out.println("Powód: Niedziela powinna być niepracująca\n");
                 return false;
             }
         }else{
             if(porannaZmiana == null){
-//                System.out.println("Powód: Brak osoby na poranną zmianę w ciągu tygodnia\n");
+                System.out.println("Powód: Brak osoby na poranną zmianę w ciągu tygodnia\n");
                 return false;
             }
             if(wieczornaZmiana == null){
-//                System.out.println("Powód: Brak osoby na wieczorną zmianę w ciągu tygodnia\n");
+                System.out.println("Powód: Brak osoby na wieczorną zmianę w ciągu tygodnia\n");
                 return false;
             }
 
             if(!sprawdzPodwojneZmiany()){
-//                System.out.println("Powód: Napotkano podwojne zmiany\n");
+                System.out.println("Powód: Napotkano podwojne zmiany\n");
                 return false;
             }
 
             if(!sprawdzZmianyRW(poprzedniDzien)){
+                System.out.println("Powód: Nie można pracowac dwie zmiany pod rzad\n");
                 return false;
             }
 
             if(!sprawdzIloscH()){
+                System.out.println("Powód: Zbyt wiele przepracowanych godzin\n");
                 return false;
             }
 
