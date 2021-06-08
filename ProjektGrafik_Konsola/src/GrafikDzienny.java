@@ -1,7 +1,3 @@
-package notApplication;
-
-import java.sql.SQLOutput;
-
 public class GrafikDzienny {
     int dzien;
     Pracownik porannaZmiana;

@@ -1,5 +1,3 @@
-package notApplication;
-
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.Comparator;
@@ -18,7 +16,7 @@ public class GrafikMiesieczny implements Comparator<GrafikMiesieczny> {
     }
 
     public void uzupelnijGrafik(Pracownik[] pracownicy) {
-        int rand1 = 0, rand2 = 0, m = -1, n = -1;
+        int rand1 = 0, rand2 = 0, m = 1, n = 1;
         for (int i = 1; i <= 30; i++) {
             // m jako zmienna stopująca wyszukiwanie pracownika. Tak samo n niżej
             for (m = 0; m < 10; m++) {
@@ -189,17 +187,6 @@ public class GrafikMiesieczny implements Comparator<GrafikMiesieczny> {
         return true;
     }
 
-    //Specjalnie nie robiłam tego na razie, bo nasz algorytm jeszcze nie znajduje tak dobrego rozwiazania
-    public boolean sprawdzPoprawnosc() {
-        for (int i = 1; i <= 30; i++) {
-            if (!grafik.get(i).sprawdzPoprawnosc(grafik.get(i - 1))) {
-//                System.out.printf("Pierwszy napotkany niepoprawny dzień: " + i + "\n");
-                return false;
-            }
-        }
-        return true;
-    }
-
     public int zliczPoprawneDni() {
         int iloscPoprawnychDni = 0;
         for (int i = 1; i <= 30; i++) {
@@ -214,10 +201,6 @@ public class GrafikMiesieczny implements Comparator<GrafikMiesieczny> {
 
     public ArrayList<GrafikDzienny> getGrafik() {
         return grafik;
-    }
-
-    public GrafikDzienny getGrafik(int dzien) {
-        return grafik.get(dzien);
     }
 
     @Override
