@@ -1,5 +1,8 @@
+package notApplication;
+
 import java.io.FileNotFoundException;
 import java.util.Scanner;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 
 public class Main {
@@ -164,5 +167,7 @@ public class Main {
         TimeUnit.SECONDS.sleep(3);
         populacja.grafiki[0].wypisz(pracownicy);
 
+        System.out.println("\n\n\nSprawdzam najlepszy grafik:");
+//        populacja.grafiki[0].sprawdzPoprawnosc();
     }
 }
