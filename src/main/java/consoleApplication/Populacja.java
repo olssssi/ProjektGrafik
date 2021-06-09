@@ -1,10 +1,10 @@
-package notApplication;
+package consoleApplication;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Populacja {
-    GrafikMiesieczny grafiki[] = new GrafikMiesieczny[11];
-    Comparator comparator = new GrafikMiesieczny();
+    GrafikMiesieczny[] grafiki = new GrafikMiesieczny[11];
+    Comparator<GrafikMiesieczny> comparator = new GrafikMiesieczny();
     public void sortuj(){
         Arrays.sort(grafiki, comparator);
     }
@@ -53,7 +53,7 @@ public class Populacja {
         sortuj();
     }
 
-    public void krzyzuj(int procentKrzyzowanychGrafikow, int procentKrzyzowanychDni, Pracownik[] pracownicy){
+    public void krzyzuj(int procentKrzyzowanychGrafikow, int procentKrzyzowanychDni){
         int liczbaKrzyzowanychGrafikow = (int) (grafiki.length*procentKrzyzowanychGrafikow*0.01);
         int liczbaKrzyzowanychDni = (int)(30*procentKrzyzowanychDni*0.01);
         int grafik1,grafik2, dzien1;

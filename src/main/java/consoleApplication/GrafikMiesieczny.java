@@ -1,4 +1,4 @@
-package notApplication;
+package consoleApplication;
 
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
@@ -11,10 +11,10 @@ public class GrafikMiesieczny implements Comparator<GrafikMiesieczny> {
     ArrayList<Integer> iloscHPracownikow;
 
     public GrafikMiesieczny() {
-        grafik = new ArrayList<GrafikDzienny>(31);
+        grafik = new ArrayList<>(31);
         ocena = 0;
         grafik.add(null);
-        iloscHPracownikow = new ArrayList<Integer>(4);
+        iloscHPracownikow = new ArrayList<>(4);
     }
 
     public void uzupelnijGrafik(Pracownik[] pracownicy) {
@@ -178,7 +178,7 @@ public class GrafikMiesieczny implements Comparator<GrafikMiesieczny> {
 
     }
 
-    public boolean wypiszIloscH(Pracownik[] pracownicy) throws InterruptedException {
+    public void wypiszIloscH(Pracownik[] pracownicy) throws InterruptedException {
         TimeUnit.SECONDS.sleep(4);
         System.out.println("\nILOŚĆ GODZIN PRZEPRACOWANYCH PRZEZ POSZCZEGÓLNYCH PRACOWNIKÓW:\n");
         TimeUnit.SECONDS.sleep(2);
@@ -186,21 +186,9 @@ public class GrafikMiesieczny implements Comparator<GrafikMiesieczny> {
         for (int j = 1; j < pracownicy.length; j++) {
             System.out.println("      " + j + "          |        " + pracownicy[j].iloscH);
         }
-        return true;
     }
 
-    //Specjalnie nie robiłam tego na razie, bo nasz algorytm jeszcze nie znajduje tak dobrego rozwiazania
-    public boolean sprawdzPoprawnosc() {
-        for (int i = 1; i <= 30; i++) {
-            if (!grafik.get(i).sprawdzPoprawnosc(grafik.get(i - 1))) {
-//                System.out.printf("Pierwszy napotkany niepoprawny dzień: " + i + "\n");
-                return false;
-            }
-        }
-        return true;
-    }
-
-    public int zliczPoprawneDni() {
+    public void zliczPoprawneDni() {
         int iloscPoprawnychDni = 0;
         for (int i = 1; i <= 30; i++) {
             if (grafik.get(i).sprawdzPoprawnosc(grafik.get(i - 1))) {
@@ -209,15 +197,10 @@ public class GrafikMiesieczny implements Comparator<GrafikMiesieczny> {
         }
         // Uptade oceny
         this.ocena = iloscPoprawnychDni;
-        return iloscPoprawnychDni;
     }
 
     public ArrayList<GrafikDzienny> getGrafik() {
         return grafik;
-    }
-
-    public GrafikDzienny getGrafik(int dzien) {
-        return grafik.get(dzien);
     }
 
     @Override

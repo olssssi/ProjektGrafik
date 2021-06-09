@@ -1,8 +1,7 @@
-package notApplication;
+package consoleApplication;
 
 import java.io.FileNotFoundException;
 import java.util.Scanner;
-import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 
 public class Main {
@@ -119,7 +118,7 @@ public class Main {
                 "\nskrzyżowanych między sobą. Oznacza to, że "+procentKrzyzowanychDni+"% dni każdego z nich zostanie " +
                 "\nwymienione na tą samą ilość dni z innego krzyżowanego miesiąca.");
         // do tej pory wybierane procentKrzyzowanychGrafikow=60, procentKrzyzowanychDni=50
-        populacja.krzyzuj(procentKrzyzowanychGrafikow,procentKrzyzowanychDni,pracownicy);
+        populacja.krzyzuj(procentKrzyzowanychGrafikow,procentKrzyzowanychDni);
         populacja.sortuj();
         TimeUnit.SECONDS.sleep(6);
         System.out.println("\n. . .\n");
@@ -167,7 +166,5 @@ public class Main {
         TimeUnit.SECONDS.sleep(3);
         populacja.grafiki[0].wypisz(pracownicy);
 
-        System.out.println("\n\n\nSprawdzam najlepszy grafik:");
-//        populacja.grafiki[0].sprawdzPoprawnosc();
     }
 }

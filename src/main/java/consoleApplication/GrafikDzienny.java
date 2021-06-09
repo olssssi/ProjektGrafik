@@ -1,6 +1,4 @@
-package notApplication;
-
-import java.sql.SQLOutput;
+package consoleApplication;
 
 public class GrafikDzienny {
     int dzien;
@@ -17,15 +15,11 @@ public class GrafikDzienny {
     public boolean sprawdzPoprawnosc(GrafikDzienny poprzedniDzien){
         // Soboty
         if(dzien==5 || dzien==12 || dzien==19 || dzien==26) {
-            if (!sprawdzSobote()) {
-                return false;
-            }
+            return sprawdzSobote();
         }else
             // Niedziele
             if(dzien==6 || dzien==13 || dzien==20 || dzien==27) {
-            if (!sprawdzNiedziele()) {
-                return false;
-            }
+                return sprawdzNiedziele();
         }else{
             if(porannaZmiana == null){
                 return false;
@@ -80,7 +74,6 @@ public class GrafikDzienny {
                     System.out.println("      " +id+ "         |     pracujące sobotnie popołudnie");
                 else
                     System.out.println("       " +id+ "         |     pracujące sobotnie popołudnie");
-                return;
             }
         // Niedziele
         }else if(dzien==6 || dzien==13 || dzien==20 || dzien==27) {
@@ -89,7 +82,6 @@ public class GrafikDzienny {
                     System.out.println("      " +id+ "         |     pracująca niedziela");
                 else
                     System.out.println("       " +id+ "         |     pracująca niedziela");
-                return;
             }
         }else{
             if(porannaZmiana == null){
@@ -124,7 +116,6 @@ public class GrafikDzienny {
                     System.out.println("       " +id+ "         |     osoba "+pracownik.idPracownika+" przekroczyla 120h");
                     pracownicy[pracownik.idPracownika].flaga=true;
                 }
-                return;
             }
         }
     }

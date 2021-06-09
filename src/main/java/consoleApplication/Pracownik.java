@@ -1,4 +1,4 @@
-package notApplication;
+package consoleApplication;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -6,13 +6,12 @@ import java.util.Scanner;
 
 public class Pracownik {
     int idPracownika;
-    int tabDostepnosci[] = new int[31];
+    int[] tabDostepnosci = new int[31];
     int iloscH = 0;
-    boolean flaga=false;
+    boolean flaga = false;
 
     public Pracownik(int id){
         this.idPracownika = id;
-        this.flaga=false;
     }
 
     void wpiszDostepnosc() throws FileNotFoundException {
