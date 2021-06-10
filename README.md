@@ -73,7 +73,7 @@ V.    Faza mutacji. W podanym przez użytkownika procencie grafików miesięczny
 VI.   Wykonanie wszystkich powyższych kroków oraz wypisanie grafiku miesięcznego z najlepszą oceną.
 
 ## Funkcjonalności
-![Funkcjonalności](Funkcjonalności_tab.PNG)
+![Funkcjonalności](Funkcjonalności_tab2.PNG)
 
 ## Uruchomienie
 Uruchomienie zostało przedstawione w IntelliJ IDEA i wygląda następująco: 
